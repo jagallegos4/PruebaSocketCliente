@@ -9,31 +9,22 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-/**
- *
- * @author kali
- */
 public class Cliente {
-    private Socket socket;
-    private String username;
-    private String password;
 
-    public Cliente(String host, int port, String username, String password) throws IOException {
+    private Socket socket;
+
+    public Cliente(String host, int port) throws IOException {
         socket = new Socket(host, port);
-        this.username = username;
-        this.password = password;
     }
 
-    public void start() {
+    public boolean enviarCredenciales(Usuarios usuario) {
         try {
-            System.out.println("Conectado al servidor!");
-
             DataOutputStream output = new DataOutputStream(socket.getOutputStream());
             DataInputStream input = new DataInputStream(socket.getInputStream());
 
             // Enviar el usuario y la contraseña al servidor
-            output.writeUTF(username);
-            output.writeUTF(password);
+            output.writeUTF(usuario.getUser());
+            output.writeUTF(usuario.getPassword());
 
             // Leer la respuesta del servidor
             String message = input.readUTF();
@@ -42,8 +33,10 @@ public class Cliente {
             output.close();
             input.close();
             socket.close();
+            return message.equals("Credenciales válidas!");
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return false;
     }
 }
