@@ -10,15 +10,15 @@ package socket_conexion_cliente;
  */
 public class Usuarios {
     
-    private int idUsuario;
+    //private int idUsuario;
     private String nombre;
     private String apellido;
     private String cedula;
     private String user;
     private String password;
 
-    public Usuarios(int idUsuario, String nombre, String apellido, String cedula, String user, String password) {
-        this.idUsuario = idUsuario;
+    public Usuarios(String nombre, String apellido, String cedula, String user, String password) {
+        //this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.apellido = apellido;
         this.cedula = cedula;
@@ -26,13 +26,13 @@ public class Usuarios {
         this.password = password;
     }
 
-    public int getIdUsuario() {
+    /*public int getIdUsuario() {
         return idUsuario;
     }
 
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
-    }
+    }*/
 
     public String getNombre() {
         return nombre;

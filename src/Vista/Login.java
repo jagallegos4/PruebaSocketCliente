@@ -89,10 +89,10 @@ public class Login extends javax.swing.JFrame {
         String username = txt_Usuario.getText();
         String password = new String(txt_password.getPassword());
 
-        Usuarios usuario = new Usuarios(0, "", "", "", username, password);
+        Usuarios usuario = new Usuarios( "", "", "", username, password);
 
         try {
-            Cliente cliente = new Cliente("192.168.1.247", 5000);
+            Cliente cliente = new Cliente("172.16.13.187", 5000);
             boolean validado = cliente.enviarCredenciales(usuario);
             if (validado) {
                 new Menu().setVisible(true);

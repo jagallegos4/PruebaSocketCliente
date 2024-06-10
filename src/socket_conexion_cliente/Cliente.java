@@ -22,6 +22,10 @@ public class Cliente {
             DataOutputStream output = new DataOutputStream(socket.getOutputStream());
             DataInputStream input = new DataInputStream(socket.getInputStream());
 
+            
+            // Enviar la acción de login al servidor
+            output.writeUTF("login");
+
             // Enviar el usuario y la contraseña al servidor
             output.writeUTF(usuario.getUser());
             output.writeUTF(usuario.getPassword());
@@ -34,6 +38,36 @@ public class Cliente {
             input.close();
             socket.close();
             return message.equals("Credenciales válidas!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean agregarUsuario(String nombre, String apellido, String cedula, String user, String password) {
+        try {
+            DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+            DataInputStream input = new DataInputStream(socket.getInputStream());
+
+            // Enviar la acción de agregar usuario al servidor
+            output.writeUTF("addUser");
+
+            // Enviar los datos del nuevo usuario al servidor
+            output.writeUTF(nombre);
+            output.writeUTF(apellido);
+            output.writeUTF(cedula);
+            output.writeUTF(user);
+            output.writeUTF(password);
+
+            // Leer la respuesta del servidor
+            String message = input.readUTF();
+            System.out.println("Mensaje del servidor: " + message);
+
+            output.close();
+            input.close();
+            socket.close();
+
+            return message.equals("Usuario agregado correctamente!");
         } catch (IOException e) {
             e.printStackTrace();
         }
