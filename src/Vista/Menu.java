@@ -27,6 +27,11 @@ public class Menu extends javax.swing.JFrame {
     private void initComponents() {
 
         btnContabilidad = new javax.swing.JButton();
+        btnActivos = new javax.swing.JButton();
+        btnNomina = new javax.swing.JButton();
+        btnSeleccion = new javax.swing.JButton();
+        btnCrearUsuario = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -37,21 +42,72 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        btnActivos.setText("Activos");
+        btnActivos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActivosActionPerformed(evt);
+            }
+        });
+
+        btnNomina.setText("Nomina");
+        btnNomina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNominaActionPerformed(evt);
+            }
+        });
+
+        btnSeleccion.setText("Seleccion");
+        btnSeleccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionActionPerformed(evt);
+            }
+        });
+
+        btnCrearUsuario.setText("Crear Usuario");
+        btnCrearUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearUsuarioActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Cantarell", 1, 24)); // NOI18N
+        jLabel1.setText("MENU PRINCIPAL");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(137, 137, 137)
-                .addComponent(btnContabilidad)
-                .addContainerGap(151, Short.MAX_VALUE))
+                .addContainerGap(165, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnCrearUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSeleccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnActivos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnContabilidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnNomina, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(164, 164, 164))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(110, 110, 110))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(59, 59, 59)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnActivos)
+                .addGap(27, 27, 27)
                 .addComponent(btnContabilidad)
-                .addContainerGap(216, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addComponent(btnNomina)
+                .addGap(31, 31, 31)
+                .addComponent(btnSeleccion)
+                .addGap(31, 31, 31)
+                .addComponent(btnCrearUsuario)
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         pack();
@@ -59,7 +115,33 @@ public class Menu extends javax.swing.JFrame {
 
     private void btnContabilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContabilidadActionPerformed
         // TODO add your handling code here:
+        new Contabilidad().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnContabilidadActionPerformed
+
+    private void btnCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearUsuarioActionPerformed
+        // TODO add your handling code here:
+        new CrearUsuario().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCrearUsuarioActionPerformed
+
+    private void btnActivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivosActionPerformed
+        // TODO add your handling code here:
+        new Activos().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnActivosActionPerformed
+
+    private void btnNominaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNominaActionPerformed
+        // TODO add your handling code here:
+        new Nomina().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnNominaActionPerformed
+
+    private void btnSeleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionActionPerformed
+        // TODO add your handling code here:
+        new Seleccion().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnSeleccionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -97,6 +179,11 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActivos;
     private javax.swing.JButton btnContabilidad;
+    private javax.swing.JButton btnCrearUsuario;
+    private javax.swing.JButton btnNomina;
+    private javax.swing.JButton btnSeleccion;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
