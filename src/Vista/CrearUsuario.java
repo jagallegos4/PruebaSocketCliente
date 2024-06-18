@@ -165,7 +165,7 @@ public class CrearUsuario extends javax.swing.JFrame {
         //Usuarios usuario = new Usuarios(nombre,apellido,cedula,username,password);
         
          try {
-                    Cliente cliente = new Cliente("172.16.13.187", 5000);
+                    Cliente cliente = new Cliente("localhost", 5000);
                     boolean agregado = cliente.agregarUsuario(nombre, apellido, cedula, username, password);
 
                     if (agregado) {

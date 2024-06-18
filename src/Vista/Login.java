@@ -92,7 +92,7 @@ public class Login extends javax.swing.JFrame {
         Usuarios usuario = new Usuarios( "", "", "", username, password);
 
         try {
-            Cliente cliente = new Cliente("172.16.13.187", 5000);
+            Cliente cliente = new Cliente("localhost", 5000);
             boolean validado = cliente.enviarCredenciales(usuario);
             if (validado) {
                 new Menu().setVisible(true);

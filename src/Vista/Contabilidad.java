@@ -27,6 +27,12 @@ public class Contabilidad extends javax.swing.JFrame {
     private void initComponents() {
 
         btnRegresar = new javax.swing.JButton();
+        tbnTipoCuenta = new javax.swing.JButton();
+        btnCuenta = new javax.swing.JButton();
+        btnCabecera = new javax.swing.JButton();
+        btnBalance = new javax.swing.JButton();
+        btnResultado = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -37,21 +43,82 @@ public class Contabilidad extends javax.swing.JFrame {
             }
         });
 
+        tbnTipoCuenta.setText("Tipo de Cuenta");
+        tbnTipoCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbnTipoCuentaActionPerformed(evt);
+            }
+        });
+
+        btnCuenta.setText("Cuenta");
+        btnCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCuentaActionPerformed(evt);
+            }
+        });
+
+        btnCabecera.setText("Cabecera");
+        btnCabecera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCabeceraActionPerformed(evt);
+            }
+        });
+
+        btnBalance.setText("Balance");
+        btnBalance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBalanceActionPerformed(evt);
+            }
+        });
+
+        btnResultado.setText("Estado de resultados");
+        btnResultado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResultadoActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setText("CONTABILIDAD");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnRegresar)
-                .addContainerGap(304, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(114, 114, 114)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnCuenta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCabecera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnBalance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnResultado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tbnTipoCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(97, 97, 97)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tbnTipoCuenta)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCuenta)
+                .addGap(18, 18, 18)
+                .addComponent(btnCabecera)
+                .addGap(18, 18, 18)
+                .addComponent(btnBalance)
+                .addGap(20, 20, 20)
+                .addComponent(btnResultado)
+                .addGap(18, 18, 18)
                 .addComponent(btnRegresar)
-                .addContainerGap(269, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
         );
 
         pack();
@@ -62,6 +129,35 @@ public class Contabilidad extends javax.swing.JFrame {
         new Menu().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void tbnTipoCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbnTipoCuentaActionPerformed
+        // TODO add your handling code here:
+        new TipoCuenta().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_tbnTipoCuentaActionPerformed
+
+    private void btnCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCuentaActionPerformed
+        // TODO add your handling code here:
+        new Cuenta().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCuentaActionPerformed
+
+    private void btnCabeceraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCabeceraActionPerformed
+        // TODO add your handling code here:
+        new CabeceraConta().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCabeceraActionPerformed
+
+    private void btnBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBalanceActionPerformed
+        new Balance().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnBalanceActionPerformed
+
+    private void btnResultadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResultadoActionPerformed
+        // TODO add your handling code here:
+        new EstadoResultado().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnResultadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -99,6 +195,12 @@ public class Contabilidad extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBalance;
+    private javax.swing.JButton btnCabecera;
+    private javax.swing.JButton btnCuenta;
     private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton btnResultado;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton tbnTipoCuenta;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package socket_conexion_cliente;
 
 import java.io.DataInputStream;
@@ -22,7 +18,6 @@ public class Cliente {
             DataOutputStream output = new DataOutputStream(socket.getOutputStream());
             DataInputStream input = new DataInputStream(socket.getInputStream());
 
-            
             // Enviar la acción de login al servidor
             output.writeUTF("login");
 
@@ -59,6 +54,34 @@ public class Cliente {
             output.writeUTF(user);
             output.writeUTF(password);
 
+            // Leer la respuesta del servidor
+            String message = input.readUTF();
+            System.out.println("Mensaje del servidor: " + message);
+
+            output.close();
+            input.close();
+            socket.close();
+
+            return message.equals("Usuario agregado correctamente!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean agregarTipoCuenta(TipoCuentas tipoCuenta){
+        try {
+            DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+            DataInputStream input = new DataInputStream(socket.getInputStream());
+
+            // Enviar la acción de agregar usuario al servidor
+            output.writeUTF("addTipoCuenta");
+
+            // Enviar los datos del nuevo usuario al servidor
+            output.write(tipoCuenta.getIdTipo());
+            output.writeUTF(tipoCuenta.getNombreTipo());
+            
+            
             // Leer la respuesta del servidor
             String message = input.readUTF();
             System.out.println("Mensaje del servidor: " + message);
