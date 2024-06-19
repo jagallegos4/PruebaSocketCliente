@@ -68,6 +68,12 @@ public class CrearUsuario extends javax.swing.JFrame {
             }
         });
 
+        txt_Cedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_CedulaKeyTyped(evt);
+            }
+        });
+
         btnGuardar.setFont(new java.awt.Font("Cantarell", 1, 15)); // NOI18N
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -185,6 +191,13 @@ public class CrearUsuario extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void txt_CedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_CedulaKeyTyped
+        
+        char c =evt.getKeyChar();
+        
+        if(c<'0' || c>'9')evt.consume();
+    }//GEN-LAST:event_txt_CedulaKeyTyped
 
     /**
      * @param args the command line arguments

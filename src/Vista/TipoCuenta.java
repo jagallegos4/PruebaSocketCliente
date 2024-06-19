@@ -39,7 +39,6 @@ public class TipoCuenta extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btnGuardar = new javax.swing.JButton();
-        btnBuscar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
@@ -56,6 +55,11 @@ public class TipoCuenta extends javax.swing.JFrame {
         txtIdTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdTipoActionPerformed(evt);
+            }
+        });
+        txtIdTipo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdTipoKeyTyped(evt);
             }
         });
 
@@ -75,8 +79,6 @@ public class TipoCuenta extends javax.swing.JFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-
-        btnBuscar.setText("Buscar");
 
         btnEditar.setText("Editar");
 
@@ -103,8 +105,6 @@ public class TipoCuenta extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnGuardar)
                         .addGap(18, 18, 18)
-                        .addComponent(btnBuscar)
-                        .addGap(18, 18, 18)
                         .addComponent(btnEditar)
                         .addGap(18, 18, 18)
                         .addComponent(btnEliminar)
@@ -115,9 +115,9 @@ public class TipoCuenta extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtIdTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                            .addComponent(txtIdTipo))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(18, Short.MAX_VALUE))
@@ -141,7 +141,6 @@ public class TipoCuenta extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
-                    .addComponent(btnBuscar)
                     .addComponent(btnEditar)
                     .addComponent(btnEliminar)
                     .addComponent(btnRegresar))
@@ -172,8 +171,13 @@ public class TipoCuenta extends javax.swing.JFrame {
 
                     if (agregado) {
                         JOptionPane.showMessageDialog(null, "Usuario agregado correctamente!", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                        //addUserFrame.dispose();
-                        //txt_Nombre.setText("");
+                        /*
+                        Para salir de la ventana si se agrega correctamente
+                        addUserFrame.dispose();                        
+                        */
+                        //Limpiar campos cuando el tipo de cuenta se haya agregado correctamente
+                        txtIdTipo.setText("");
+                        txtNombre.setText("");
                         //txt_Apellido.setText("");
                         
                     } else {
@@ -183,6 +187,13 @@ public class TipoCuenta extends javax.swing.JFrame {
                     ex.printStackTrace();
                 }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void txtIdTipoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdTipoKeyTyped
+        
+        char c =evt.getKeyChar();
+        
+        if(c<'0' || c>'9')evt.consume();
+    }//GEN-LAST:event_txtIdTipoKeyTyped
 
     /**
      * @param args the command line arguments
@@ -220,7 +231,6 @@ public class TipoCuenta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;

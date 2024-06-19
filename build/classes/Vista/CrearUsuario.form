@@ -154,6 +154,9 @@
     <Component class="javax.swing.JTextField" name="txt_Apellido">
     </Component>
     <Component class="javax.swing.JTextField" name="txt_Cedula">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_CedulaKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txt_Usuario">
     </Component>
