@@ -161,7 +161,8 @@ public class TipoCuenta extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        int idTipo = Integer.parseInt(txtIdTipo.getText());
+        //int idTipo = Integer.parseInt(txtIdTipo.getText());
+        int idTipo=0;
         String nombre = txtNombre.getText();
         TipoCuentas tipoCuenta = new TipoCuentas(idTipo, nombre);
         
@@ -191,7 +192,6 @@ public class TipoCuenta extends javax.swing.JFrame {
     private void txtIdTipoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdTipoKeyTyped
         
         char c =evt.getKeyChar();
-        
         if(c<'0' || c>'9')evt.consume();
     }//GEN-LAST:event_txtIdTipoKeyTyped
 

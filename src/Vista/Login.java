@@ -89,7 +89,7 @@ public class Login extends javax.swing.JFrame {
         String username = txt_Usuario.getText();
         String password = new String(txt_password.getPassword());
 
-        Usuarios usuario = new Usuarios( "", "", "", username, password);
+        Usuarios usuario = new Usuarios( 0,"", "", "", username, password);
 
         try {
             Cliente cliente = new Cliente("localhost", 5000);
