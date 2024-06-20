@@ -63,7 +63,7 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        btnCrearUsuario.setText("Crear Usuario");
+        btnCrearUsuario.setText("Gestionar Usuario");
         btnCrearUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCrearUsuarioActionPerformed(evt);
