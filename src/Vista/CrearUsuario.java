@@ -33,7 +33,7 @@ public class CrearUsuario extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaUsuarios = new javax.swing.JTable();
-        btnActualizar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -96,10 +96,10 @@ public class CrearUsuario extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tablaUsuarios);
 
-        btnActualizar.setText("Actualizar");
-        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
+                btnEditarActionPerformed(evt);
             }
         });
 
@@ -139,7 +139,7 @@ public class CrearUsuario extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnGuardar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnActualizar)
+                                .addComponent(btnEditar)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnEliminar)))
                         .addGap(41, 41, 41))
@@ -224,7 +224,7 @@ public class CrearUsuario extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnGuardar)
-                            .addComponent(btnActualizar)
+                            .addComponent(btnEditar)
                             .addComponent(btnEliminar))
                         .addGap(18, 18, 18)
                         .addComponent(btnRegresar))
@@ -246,14 +246,14 @@ public class CrearUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_NombreActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-
+        int idUsuario = 0;
         String nombre = txt_Nombre.getText();
         String apellido = txt_Apellido.getText();
         String cedula = txt_Cedula.getText();
         String username = txt_Usuario.getText();
         String password = txt_Password.getText();
 
-        Usuarios usuario = new Usuarios(0, nombre, apellido, cedula, username, password);
+        Usuarios usuario = new Usuarios(idUsuario, nombre, apellido, cedula, username, password);
 
         try {
             Cliente cliente = new Cliente("localhost", 5000);
@@ -267,6 +267,7 @@ public class CrearUsuario extends javax.swing.JFrame {
                 txt_Cedula.setText("");
                 txt_Usuario.setText("");
                 txt_Password.setText("");
+                cargarUsuarios(tablaUsuarios);
             } else {
                 JOptionPane.showMessageDialog(null, "Error al agregar el usuario!", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -285,13 +286,41 @@ public class CrearUsuario extends javax.swing.JFrame {
             evt.consume();
     }//GEN-LAST:event_txt_CedulaKeyTyped
 
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        int idUsuario = Integer.parseInt(txt_Id.getText());
+        String nombre = txt_Nombre.getText();
+        String apellido = txt_Apellido.getText();
+        String cedula = txt_Cedula.getText();
+        String username = txt_Usuario.getText();
+        String password = txt_Password.getText();
 
-    }//GEN-LAST:event_btnActualizarActionPerformed
+        //cambiar el nombre de la variable de la clase Usuarios
+        Usuarios usuarios = new Usuarios(idUsuario, nombre, apellido, cedula, username, password);
+        try {
+            Cliente cliente = new Cliente("localhost", 5000);
+            boolean editado = cliente.editarUsuario(usuarios);
+
+            if (editado) {
+                JOptionPane.showMessageDialog(null, "Usuario editado correctamente!", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                txt_Id.setText("");
+                txt_Nombre.setText("");
+                txt_Apellido.setText("");
+                txt_Cedula.setText("");
+                txt_Usuario.setText("");
+                txt_Password.setText("");
+                cargarUsuarios(tablaUsuarios);
+                //actualizarTablaUsuarios(tablaUsuarios);
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al editar el usuario!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        int selectedRow = tablaUsuarios.getSelectedRow();
-        /*if (selectedRow != -1) {
+        /*int selectedRow = tablaUsuarios.getSelectedRow();
+        if (selectedRow != -1) {
                     int idUsuario = (int) tablaUsuarios.getValueAt(selectedRow, 0);
                     try {
                         Cliente cliente = new Cliente("localhost", 5000);
@@ -318,6 +347,8 @@ public class CrearUsuario extends javax.swing.JFrame {
             if (eliminado) {
                 JOptionPane.showMessageDialog(null, "Usuario eliminado correctamente!", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 cargarUsuarios(tablaUsuarios);
+                txt_Id.setText("");
+
             } else {
                 JOptionPane.showMessageDialog(null, "Error al eliminar el usuario!", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -331,13 +362,14 @@ public class CrearUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_CedulaActionPerformed
 
     private void txt_IdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_IdActionPerformed
-        
+
     }//GEN-LAST:event_txt_IdActionPerformed
 
     private void txt_IdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_IdKeyTyped
         // TODO add your handling code here:
-        char c =evt.getKeyChar();
-        if(c<'0' || c>'9')evt.consume();
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9')
+            evt.consume();
     }//GEN-LAST:event_txt_IdKeyTyped
 
     private static void cargarUsuarios(JTable tablaUsuarios) {
@@ -400,7 +432,7 @@ public class CrearUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnRegresar;

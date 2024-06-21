@@ -71,6 +71,33 @@ public class Cliente {
         return false;
     }
     
+    public boolean agregarTipoCuenta(TipoCuentas tipoCuenta){
+        try {
+            DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+            DataInputStream input = new DataInputStream(socket.getInputStream());
+
+            // Enviar la acción de agregar usuario al servidor
+            output.writeUTF("addTipoCuenta");
+
+            // Enviar los datos del nuevo usuario al servidor
+            //output.write(tipoCuenta.getIdTipo());
+            output.writeUTF(tipoCuenta.getNombreTipo());
+            
+            // Leer la respuesta del servidor
+            String message = input.readUTF();
+            System.out.println("Mensaje del servidor: " + message);
+
+            output.close();
+            input.close();
+            socket.close();
+
+            return message.equals("El tipo de cuenta agregado correctamente!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
     public List<Usuarios> obtenerUsuarios() {
 
         List<Usuarios> usuarios = new ArrayList<>();
@@ -104,7 +131,6 @@ public class Cliente {
 
                 usuarios.add(usuario);
             }
-
             output.close();
             input.close();
             socket.close();
@@ -139,20 +165,23 @@ public class Cliente {
         }
         return false;
     }
-
-    public boolean agregarTipoCuenta(TipoCuentas tipoCuenta){
+    
+    public boolean editarUsuario(Usuarios usuarios) {
         try {
             DataOutputStream output = new DataOutputStream(socket.getOutputStream());
             DataInputStream input = new DataInputStream(socket.getInputStream());
 
-            // Enviar la acción de agregar usuario al servidor
-            output.writeUTF("addTipoCuenta");
+            // Enviar la acción de editar usuario al servidor
+            output.writeUTF("updateUser");
 
-            // Enviar los datos del nuevo usuario al servidor
-            output.write(tipoCuenta.getIdTipo());
-            output.writeUTF(tipoCuenta.getNombreTipo());
-            
-            
+            // Enviar los datos del usuario a editar
+            output.writeInt(usuarios.getIdUsuario());
+            output.writeUTF(usuarios.getNombre());
+            output.writeUTF(usuarios.getApellido());
+            output.writeUTF(usuarios.getCedula());
+            output.writeUTF(usuarios.getUser());
+            output.writeUTF(usuarios.getPassword());
+
             // Leer la respuesta del servidor
             String message = input.readUTF();
             System.out.println("Mensaje del servidor: " + message);
@@ -161,11 +190,10 @@ public class Cliente {
             input.close();
             socket.close();
 
-            return message.equals("Usuario agregado correctamente!");
+            return message.equals("Usuario actualizado correctamente!");
         } catch (IOException e) {
             e.printStackTrace();
         }
         return false;
     }
-    
 }
