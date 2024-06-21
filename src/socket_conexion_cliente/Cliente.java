@@ -1,5 +1,6 @@
 package socket_conexion_cliente;
 
+import Vista.TipoCuenta;
 import java.util.List;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 public class Cliente {
 
     private final Socket socket;
-
+    
     public Cliente(String host, int port) throws IOException {
         socket = new Socket(host, port);
     }
@@ -70,8 +71,8 @@ public class Cliente {
         }
         return false;
     }
-    
-    public boolean agregarTipoCuenta(TipoCuentas tipoCuenta){
+
+    public boolean agregarTipoCuenta(TipoCuentas tipoCuenta) {
         try {
             DataOutputStream output = new DataOutputStream(socket.getOutputStream());
             DataInputStream input = new DataInputStream(socket.getInputStream());
@@ -82,7 +83,7 @@ public class Cliente {
             // Enviar los datos del nuevo usuario al servidor
             //output.write(tipoCuenta.getIdTipo());
             output.writeUTF(tipoCuenta.getNombreTipo());
-            
+
             // Leer la respuesta del servidor
             String message = input.readUTF();
             System.out.println("Mensaje del servidor: " + message);
@@ -97,11 +98,36 @@ public class Cliente {
         }
         return false;
     }
-    
+
+    public boolean agregarCuenta(Cuentas cuenta) {
+        try {
+            DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+            DataInputStream input = new DataInputStream(socket.getInputStream());
+
+            // Enviar la acción de agregar usuario al servidor
+            output.writeUTF("addTipoCuenta");
+
+            // Enviar los datos del nuevo usuario al servidor
+            output.writeUTF(cuenta.getNombreCuenta());
+            output.writeInt(cuenta.getIdCuenta());
+
+            // Leer la respuesta del servidor
+            String message = input.readUTF();
+            System.out.println("Mensaje del servidor: " + message);
+
+            output.close();
+            input.close();
+            socket.close();
+
+            return message.equals("El tipo de cuenta agregado correctamente!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public List<Usuarios> obtenerUsuarios() {
-
         List<Usuarios> usuarios = new ArrayList<>();
-
         try {
             DataOutputStream output = new DataOutputStream(socket.getOutputStream());
             DataInputStream input = new DataInputStream(socket.getInputStream());
@@ -120,8 +146,8 @@ public class Cliente {
                 String cedula = input.readUTF();
                 String user = input.readUTF();
                 String password = input.readUTF();
+                Usuarios usuario = new Usuarios(0, "", "", "", "", "");
 
-                Usuarios usuario = new Usuarios(0,"", "", "", "", "");
                 usuario.setIdUsuario(id);
                 usuario.setNombre(nombre);
                 usuario.setApellido(apellido);
@@ -138,6 +164,76 @@ public class Cliente {
             e.printStackTrace();
         }
         return usuarios;
+    }
+
+    public List<TipoCuentas> obtenerTiposCuentas() {
+
+        List<TipoCuentas> tipoCuentas = new ArrayList<>();
+        try {
+            DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+            DataInputStream input = new DataInputStream(socket.getInputStream());
+
+            // Enviar la acción de obtener todos los usuarios al servidor
+            output.writeUTF("getAllTiposCuentas");
+
+            // Leer la cantidad de usuarios
+            int userCount = input.readInt();
+
+            // Leer los datos de cada usuario
+            for (int i = 0; i < userCount; i++) {
+                int idTipoCuenta = input.readInt();
+                String nombreTipo = input.readUTF();
+                TipoCuentas tipoCuenta = new TipoCuentas(0, "");
+
+                tipoCuenta.setIdTipo(idTipoCuenta);
+                tipoCuenta.setNombreTipo(nombreTipo);
+
+                tipoCuentas.add(tipoCuenta);
+
+            }
+            output.close();
+            input.close();
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return tipoCuentas;
+    }
+
+    public List<Cuentas> obtenerCuentas() {
+
+        List<Cuentas> cuentas = new ArrayList<>();
+        try {
+            DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+            DataInputStream input = new DataInputStream(socket.getInputStream());
+
+            // Enviar la acción de obtener todos los usuarios al servidor
+            output.writeUTF("getAllCuentas");
+
+            // Leer la cantidad de usuarios
+            int userCount = input.readInt();
+
+            // Leer los datos de cada usuario
+            for (int i = 0; i < userCount; i++) {
+                int idCuenta = input.readInt();
+                String nombreCuenta = input.readUTF();
+                int idTipoCuenta = input.readInt();
+                Cuentas cuenta = new Cuentas(0, "", 0);
+                
+                cuenta.setIdCuenta(idCuenta);
+                cuenta.setNombreCuenta(nombreCuenta);
+                cuenta.setIdTipoCuenta(idTipoCuenta);
+                
+                cuentas.add(cuenta);              
+
+            }
+            output.close();
+            input.close();
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return cuentas;
     }
 
     public boolean eliminarUsuario(int idUsuario) {
@@ -165,7 +261,7 @@ public class Cliente {
         }
         return false;
     }
-    
+
     public boolean editarUsuario(Usuarios usuarios) {
         try {
             DataOutputStream output = new DataOutputStream(socket.getOutputStream());
@@ -196,4 +292,111 @@ public class Cliente {
         }
         return false;
     }
+    
+    public boolean editarTipoCuenta(TipoCuentas tipoCuentas) {
+        try {
+            DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+            DataInputStream input = new DataInputStream(socket.getInputStream());
+
+            // Enviar la acción de editar usuario al servidor
+            output.writeUTF("updateTipoCuenta");
+
+            // Enviar los datos del usuario a editar
+            output.writeInt(tipoCuentas.getIdTipo());
+            output.writeUTF(tipoCuentas.getNombreTipo());
+
+            // Leer la respuesta del servidor
+            String message = input.readUTF();
+            System.out.println("Mensaje del servidor: " + message);
+
+            output.close();
+            input.close();
+            socket.close();
+
+            return message.equals("El tipo de cuenta se ha actualizado correctamente!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean editarCuenta(Cuentas cuentas) {
+        try {
+            DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+            DataInputStream input = new DataInputStream(socket.getInputStream());
+
+            // Enviar la acción de editar usuario al servidor
+            output.writeUTF("updateTipoCuenta");
+
+            // Enviar los datos del usuario a editar
+            output.writeInt(cuentas.getIdCuenta());
+            output.writeUTF(cuentas.getNombreCuenta());
+
+            // Leer la respuesta del servidor
+            String message = input.readUTF();
+            System.out.println("Mensaje del servidor: " + message);
+
+            output.close();
+            input.close();
+            socket.close();
+
+            return message.equals("La cuenta se ha actualizado correctamente!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean eliminarTipoCuenta(int idTipoCuenta) {
+        try {
+            DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+            DataInputStream input = new DataInputStream(socket.getInputStream());
+
+            // Enviar la acción de eliminar usuario al servidor
+            output.writeUTF("deleteTipoCuenta");
+
+            // Enviar el ID del usuario a eliminar
+            output.writeInt(idTipoCuenta);
+
+            // Leer la respuesta del servidor
+            String message = input.readUTF();
+            System.out.println("Mensaje del servidor: " + message);
+
+            output.close();
+            input.close();
+            socket.close();
+
+            return message.equals("Tipo de cuenta eliminado correctamente!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean eliminarCuenta(int idCuenta) {
+        try {
+            DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+            DataInputStream input = new DataInputStream(socket.getInputStream());
+
+            // Enviar la acción de eliminar usuario al servidor
+            output.writeUTF("deleteCuenta");
+
+            // Enviar el ID del usuario a eliminar
+            output.writeInt(idCuenta);
+
+            // Leer la respuesta del servidor
+            String message = input.readUTF();
+            System.out.println("Mensaje del servidor: " + message);
+
+            output.close();
+            input.close();
+            socket.close();
+
+            return message.equals("Cuenta eliminada correctamente!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

@@ -1,7 +1,9 @@
 package Vista;
 
 import java.io.IOException;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import socket_conexion_cliente.Cliente;
 import socket_conexion_cliente.TipoCuentas;
 
@@ -10,8 +12,10 @@ import socket_conexion_cliente.TipoCuentas;
  * @author Andres Gallegos
  */
 public class TipoCuenta extends javax.swing.JFrame {
+
     public TipoCuenta() {
         initComponents();
+        cargarTiposCuentas(tablaTipoCuenta);
     }
 
     @SuppressWarnings("unchecked")
@@ -24,7 +28,7 @@ public class TipoCuenta extends javax.swing.JFrame {
         txtIdTipo = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaTipoCuenta = new javax.swing.JTable();
         btnGuardar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
@@ -50,7 +54,7 @@ public class TipoCuenta extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaTipoCuenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -58,7 +62,7 @@ public class TipoCuenta extends javax.swing.JFrame {
                 "Código", "Nombre"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaTipoCuenta);
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -68,8 +72,18 @@ public class TipoCuenta extends javax.swing.JFrame {
         });
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnRegresar.setText("Regresar");
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
@@ -148,37 +162,98 @@ public class TipoCuenta extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         //int idTipo = Integer.parseInt(txtIdTipo.getText());
-        int idTipo=0;
+        int idTipo = 0;
         String nombre = txtNombre.getText();
         TipoCuentas tipoCuenta = new TipoCuentas(idTipo, nombre);
-        
-        try {
-                    Cliente cliente = new Cliente("localhost", 5000);
-                    boolean agregado = cliente.agregarTipoCuenta(tipoCuenta);
 
-                    if (!agregado) {
-                        JOptionPane.showMessageDialog(null, "El tipo de cuenta fue agregado correctamente!", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                        /*
+        try {
+            Cliente cliente = new Cliente("localhost", 5000);
+            boolean agregado = cliente.agregarTipoCuenta(tipoCuenta);
+
+            if (!agregado) {
+                JOptionPane.showMessageDialog(null, "El tipo de cuenta fue agregado correctamente!", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                /*
                         Para salir de la ventana si se agrega correctamente
                         addUserFrame.dispose();                        
-                        */
-                        //Limpiar campos cuando el tipo de cuenta se haya agregado correctamente
-                        txtIdTipo.setText("");
-                        txtNombre.setText("");
-                        
-                        
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Error al agregar el tipo de cuenta!", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
+                 */
+                //Limpiar campos cuando el tipo de cuenta se haya agregado correctamente
+                txtIdTipo.setText("");
+                txtNombre.setText("");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al agregar el tipo de cuenta!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtIdTipoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdTipoKeyTyped
-        char c =evt.getKeyChar();
-        if(c<'0' || c>'9')evt.consume();
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9')
+            evt.consume();
     }//GEN-LAST:event_txtIdTipoKeyTyped
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        int idTipoCuenta = Integer.parseInt(txtIdTipo.getText());
+        String nombreTipo = txtNombre.getText();
+
+        //cambiar el nombre de la variable de la clase Usuarios
+        TipoCuentas tipoCuentas = new TipoCuentas(idTipoCuenta, nombreTipo);
+        try {
+            Cliente cliente = new Cliente("localhost", 5000);
+            boolean editado = cliente.editarTipoCuenta(tipoCuentas);
+
+            if (!editado) {
+                JOptionPane.showMessageDialog(null, "Tipo de cuenta editado correctamente!", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                txtIdTipo.setText("");
+                txtNombre.setText("");
+                cargarTiposCuentas(tablaTipoCuenta);
+                //actualizarTablaUsuarios(tablaUsuarios);
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al editar el tipo de cuenta!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int idTipoCuenta = Integer.parseInt(txtIdTipo.getText());
+
+        try {
+            Cliente cliente = new Cliente("localhost", 5000);
+            boolean eliminado = cliente.eliminarTipoCuenta(idTipoCuenta);
+
+            if (eliminado) {
+                JOptionPane.showMessageDialog(null, "Tipo de cuenta eliminado correctamente!", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                cargarTiposCuentas(tablaTipoCuenta);
+                txtIdTipo.setText("");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al eliminar el tipo de cuenta!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void cargarTiposCuentas(JTable tablaTipoCuenta) {
+        try {
+            Cliente cliente = new Cliente("localhost", 5000);
+            List<TipoCuentas> tiposCuentas = cliente.obtenerTiposCuentas();
+
+            Object[][] data = new Object[tiposCuentas.size()][2];
+            for (int i = 0; i < tiposCuentas.size(); i++) {
+                data[i][0] = tiposCuentas.get(i).getIdTipo();
+                data[i][1] = tiposCuentas.get(i).getNombreTipo();
+            }
+
+            tablaTipoCuenta.setModel(new javax.swing.table.DefaultTableModel(data, new String[]{"ID", "Nombre Tipo"}));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -224,7 +299,7 @@ public class TipoCuenta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaTipoCuenta;
     private javax.swing.JTextField txtIdTipo;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
