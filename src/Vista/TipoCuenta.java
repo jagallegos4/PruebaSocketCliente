@@ -104,6 +104,7 @@ public class TipoCuenta extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
                         .addComponent(btnGuardar)
                         .addGap(18, 18, 18)
                         .addComponent(btnEditar)
@@ -120,8 +121,8 @@ public class TipoCuenta extends javax.swing.JFrame {
                             .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                             .addComponent(txtIdTipo))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,6 +180,7 @@ public class TipoCuenta extends javax.swing.JFrame {
                 //Limpiar campos cuando el tipo de cuenta se haya agregado correctamente
                 txtIdTipo.setText("");
                 txtNombre.setText("");
+                cargarTiposCuentas(tablaTipoCuenta);
 
             } else {
                 JOptionPane.showMessageDialog(null, "Error al agregar el tipo de cuenta!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -241,7 +243,7 @@ public class TipoCuenta extends javax.swing.JFrame {
     private void cargarTiposCuentas(JTable tablaTipoCuenta) {
         try {
             Cliente cliente = new Cliente("localhost", 5000);
-            List<TipoCuentas> tiposCuentas = cliente.obtenerTiposCuentas();
+            List<TipoCuentas> tiposCuentas = cliente.obtenerTipoCuentas();
 
             Object[][] data = new Object[tiposCuentas.size()][2];
             for (int i = 0; i < tiposCuentas.size(); i++) {

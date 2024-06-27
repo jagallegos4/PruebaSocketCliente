@@ -105,11 +105,11 @@ public class Cliente {
             DataInputStream input = new DataInputStream(socket.getInputStream());
 
             // Enviar la acción de agregar usuario al servidor
-            output.writeUTF("addTipoCuenta");
+            output.writeUTF("addCuenta");
 
-            // Enviar los datos del nuevo usuario al servidor
+            // Enviar los datos al servidor
             output.writeUTF(cuenta.getNombreCuenta());
-            output.writeInt(cuenta.getIdCuenta());
+            output.writeInt(cuenta.getIdTipoCuenta());
 
             // Leer la respuesta del servidor
             String message = input.readUTF();
@@ -166,7 +166,7 @@ public class Cliente {
         return usuarios;
     }
 
-    public List<TipoCuentas> obtenerTiposCuentas() {
+    public List<TipoCuentas> obtenerTipoCuentas() {
 
         List<TipoCuentas> tipoCuentas = new ArrayList<>();
         try {

@@ -29,9 +29,10 @@ public class Menu extends javax.swing.JFrame {
         btnContabilidad = new javax.swing.JButton();
         btnActivos = new javax.swing.JButton();
         btnNomina = new javax.swing.JButton();
-        btnSeleccion = new javax.swing.JButton();
+        btnSelección = new javax.swing.JButton();
         btnCrearUsuario = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,10 +57,10 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        btnSeleccion.setText("Seleccion");
-        btnSeleccion.addActionListener(new java.awt.event.ActionListener() {
+        btnSelección.setText("Seleccion");
+        btnSelección.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeleccionActionPerformed(evt);
+                btnSelecciónActionPerformed(evt);
             }
         });
 
@@ -73,41 +74,53 @@ public class Menu extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Cantarell", 1, 24)); // NOI18N
         jLabel1.setText("MENU PRINCIPAL");
 
+        btnLogout.setText("Cerrar Sesión");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(165, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnCrearUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnSeleccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnActivos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnContabilidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnNomina, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(164, 164, 164))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(110, 110, 110))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(109, 109, 109)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(159, 159, 159)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnNomina, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btnContabilidad, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnCrearUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnSelección, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnActivos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
                 .addComponent(btnActivos)
-                .addGap(27, 27, 27)
+                .addGap(18, 18, 18)
                 .addComponent(btnContabilidad)
-                .addGap(27, 27, 27)
+                .addGap(18, 18, 18)
                 .addComponent(btnNomina)
-                .addGap(31, 31, 31)
-                .addComponent(btnSeleccion)
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
+                .addComponent(btnSelección)
+                .addGap(18, 18, 18)
                 .addComponent(btnCrearUsuario)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnLogout)
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         pack();
@@ -137,11 +150,16 @@ public class Menu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnNominaActionPerformed
 
-    private void btnSeleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionActionPerformed
+    private void btnSelecciónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecciónActionPerformed
         // TODO add your handling code here:
         new Seleccion().setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnSeleccionActionPerformed
+    }//GEN-LAST:event_btnSelecciónActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        new Login().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -182,8 +200,9 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton btnActivos;
     private javax.swing.JButton btnContabilidad;
     private javax.swing.JButton btnCrearUsuario;
+    private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnNomina;
-    private javax.swing.JButton btnSeleccion;
+    private javax.swing.JButton btnSelección;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
