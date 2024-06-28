@@ -99,7 +99,7 @@ public class Cliente {
         return false;
     }
 
-    public boolean agregarCuenta(Cuentas cuenta) {
+    public boolean agregarCuenta(String nombreCuenta, int idTipoCuenta) {
         try {
             DataOutputStream output = new DataOutputStream(socket.getOutputStream());
             DataInputStream input = new DataInputStream(socket.getInputStream());
@@ -108,8 +108,8 @@ public class Cliente {
             output.writeUTF("addCuenta");
 
             // Enviar los datos al servidor
-            output.writeUTF(cuenta.getNombreCuenta());
-            output.writeInt(cuenta.getIdTipoCuenta());
+            output.writeUTF(nombreCuenta);
+            output.writeInt(idTipoCuenta);
 
             // Leer la respuesta del servidor
             String message = input.readUTF();
@@ -202,7 +202,7 @@ public class Cliente {
 
     public List<Cuentas> obtenerCuentas() {
 
-        List<Cuentas> cuentas = new ArrayList<>();
+        List<Cuentas> account = new ArrayList<>();
         try {
             DataOutputStream output = new DataOutputStream(socket.getOutputStream());
             DataInputStream input = new DataInputStream(socket.getInputStream());
@@ -224,7 +224,7 @@ public class Cliente {
                 cuenta.setNombreCuenta(nombreCuenta);
                 cuenta.setIdTipoCuenta(idTipoCuenta);
                 
-                cuentas.add(cuenta);              
+                account.add(cuenta);              
 
             }
             output.close();
@@ -233,7 +233,7 @@ public class Cliente {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return cuentas;
+        return account;
     }
 
     public boolean eliminarUsuario(int idUsuario) {
@@ -326,11 +326,12 @@ public class Cliente {
             DataInputStream input = new DataInputStream(socket.getInputStream());
 
             // Enviar la acción de editar usuario al servidor
-            output.writeUTF("updateTipoCuenta");
+            output.writeUTF("updateCuenta");
 
             // Enviar los datos del usuario a editar
             output.writeInt(cuentas.getIdCuenta());
             output.writeUTF(cuentas.getNombreCuenta());
+            output.writeInt(cuentas.getIdTipoCuenta());
 
             // Leer la respuesta del servidor
             String message = input.readUTF();
@@ -398,5 +399,34 @@ public class Cliente {
         }
         return false;
     }
-
+    
+    //////Método buscar tipo de cuenta
+    
+    public int buscarIdTipo(String nombreTipo){
+        int idTipo=0;
+        int respuesta=0;
+        try{
+            DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+            DataInputStream input = new DataInputStream(socket.getInputStream());
+            
+            
+            output.writeUTF("buscarIdTipo");
+            
+            output.writeUTF(nombreTipo);
+            
+            
+            idTipo=input.readInt();
+            //String message = input.readUTF();
+            //System.out.println("Mensaje del servidor: " + message);
+            
+            
+            output.close();
+            input.close();
+            socket.close();
+        } 
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        return idTipo;
+    }
 }
