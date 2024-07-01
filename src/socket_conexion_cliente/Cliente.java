@@ -373,7 +373,7 @@ public class Cliente {
         }
         return false;
     }
-    
+
     public boolean eliminarCuenta(int idCuenta) {
         try {
             DataOutputStream output = new DataOutputStream(socket.getOutputStream());
@@ -404,21 +404,15 @@ public class Cliente {
     
     public int buscarIdTipo(String nombreTipo){
         int idTipo=0;
-        int respuesta=0;
         try{
             DataOutputStream output = new DataOutputStream(socket.getOutputStream());
             DataInputStream input = new DataInputStream(socket.getInputStream());
-            
             
             output.writeUTF("buscarIdTipo");
             
             output.writeUTF(nombreTipo);
             
-            
             idTipo=input.readInt();
-            //String message = input.readUTF();
-            //System.out.println("Mensaje del servidor: " + message);
-            
             
             output.close();
             input.close();
@@ -428,5 +422,27 @@ public class Cliente {
             e.printStackTrace();
         }
         return idTipo;
+    }
+    
+    public int buscarIdCuenta(String cuenta){
+        int idCuenta=0;        
+        try{
+            DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+            DataInputStream input = new DataInputStream(socket.getInputStream());
+            
+            output.writeUTF("buscarIdCuenta");
+            
+            output.writeUTF(cuenta);
+            
+            idCuenta=input.readInt();
+            
+            output.close();
+            input.close();
+            socket.close();
+        } 
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        return idCuenta;
     }
 }
